@@ -5,9 +5,6 @@ RUN apk --no-cache add php7 php7-fpm php7-mysqli php7-json php7-openssl php7-cur
     php7-zlib php7-xml php7-phar php7-intl php7-dom php7-xmlreader php7-ctype php7-session \
     php7-mbstring php7-gd nginx supervisor curl
 
-# force ownership of directory to write nginx cache
-RUN chown -R nginx /var/cache/nginx \
-    && chmod -R g+w /var/cache/nginx
 
 # reduce the rotation to keep last 2 weeks
 RUN sed -ie -- "/rotate/s/[0-9]\+/14/g" /etc/logrotate.d/nginx
@@ -26,14 +23,15 @@ COPY config/php.ini /etc/php7/conf.d/custom.ini
 # Configure supervisord
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Make sure files/folders needed by the processes are accessable when they run under the nobody user
-RUN chown -R nobody.nobody /run && \
-  chown -R nobody.nobody /var/lib/nginx && \
-  chown -R nobody.nobody /var/tmp/nginx && \
-  chown -R nobody.nobody /var/log/nginx
+# force ownership on directories and files needed by the processes
+RUN chown -R nginx:nginx /run \
+  && chown -R nginx:nginx /var/lib/nginx \
+  && chmod -R g+w /var/lib/nginx \
+  && chown -R nginx:nginx /var/tmp/nginx \
+  && chown -R nginx:nginx /var/log/nginx
 
 # Switch to use a non-root user from here on
-USER nobody
+USER nginx
 
 # Expose the port nginx is reachable on
 EXPOSE 8080
