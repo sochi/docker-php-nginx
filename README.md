@@ -18,9 +18,15 @@ docker build -t docker-php-nginx .
 ## Expected usage
 
 ```
-FROM docker-php-nginx  # build an image from this repository as base
+# build an image from this repository as base image
+FROM docker-php-nginx
 WORKDIR /var/www
-COPY --chown=nobody <your_directory>/ /var/www
+COPY --chown=nginx <your_directory>/ /var/www
+
+# append other configuration to the server if necessary
+# for instance we can set expiration headers for cache, or to disable access
+# logging on favicon.ico and robots.txt
+COPY <your_configuration_file>.conf /etc/nginx/conf.d/default.conf.add
 ```
 
 ## Adding composer
