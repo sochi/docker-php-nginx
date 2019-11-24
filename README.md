@@ -17,5 +17,5 @@ docker build -t docker-php-nginx .
 ```
 FROM docker-php-nginx  # build an image from this repository as base
 WORKDIR /var/www
-COPY /<your_directory> /var/www
+COPY --chown=nobody <your_directory>/ /var/www
 ```
