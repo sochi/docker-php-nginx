@@ -11,13 +11,13 @@ For full description of the original repository please visit https://github.com/
 
 ## Building the image locally
 
-```
+```shell
 docker build -t docker-php-nginx .
 ```
 
 ## Expected usage
 
-```
+```Dockerfile
 # build an image from this repository as base image
 FROM docker-php-nginx
 WORKDIR /var/www
