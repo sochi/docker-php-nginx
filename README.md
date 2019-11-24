@@ -6,6 +6,12 @@ For full description of the original repository please visit https://github.com/
 * based on Alpine Linux distribution
 * running Nginx and PHP-FPM in from supervisord
 
+## Building the image locally
+
+```
+docker build -t docker-php-nginx .
+```
+
 ## Expected usage
 
 ```
