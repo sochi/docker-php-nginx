@@ -8,7 +8,7 @@ For full description of the original repository please visit https://github.com/
 
 ## Building the image locally
 
-```shell
+```
 docker build -t docker-php-nginx .
 ```
 
