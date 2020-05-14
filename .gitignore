@@ -1,0 +1,8 @@
+# IDE and workspace directories
+*.ctxt
+.idea
+.vscode
+*.code-workspace
+*.sublime-project
+*.sublime-workspace
+Session.vim
